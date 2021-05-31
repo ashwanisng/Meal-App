@@ -9,7 +9,11 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(15),
-      child: Text(title),
+      child: Center(
+          child: Text(
+        title,
+        style: Theme.of(context).textTheme.headline1,
+      )),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         gradient: LinearGradient(
