@@ -8,31 +8,68 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
+  final List<Map<Object, dynamic>> _pages = [
+    {
+      'page': CategoriesScreen(),
+      'title': 'Categories',
+    },
+    {
+      'page': FavoriteScreen(),
+      'title': 'Your Favorite',
+    }
+  ];
+
+  int selectedIndex = 0;
+  void _selectedPage(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Meal'),
-          bottom: TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.category),
-                text: 'Categories',
-              ),
-              Tab(
-                icon: Icon(Icons.star),
-                text: 'Favorite',
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_pages[selectedIndex]['title']),
+      ),
+      body: _pages[selectedIndex]['page'],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _selectedPage,
+        backgroundColor: Theme.of(context).primaryColor,
+        selectedItemColor: Theme.of(context).accentColor,
+        unselectedItemColor: Colors.white,
+        currentIndex: selectedIndex,
+        type: BottomNavigationBarType.shifting,
+        items: [
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: Icon(Icons.category),
+            label: 'Categories',
           ),
-        ),
-        body: TabBarView(children: [
-          CategoriesScreen(),
-          FavoriteScreen(),
-        ]),
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: Icon(Icons.star),
+            label: 'Favorite',
+          ),
+        ],
       ),
     );
   }
 }
+
+// bottom: TabBar(
+//             tabs: [
+//               Tab(
+//                 icon: Icon(Icons.category),
+//                 text: 'Categories',
+//               ),
+//               Tab(
+//                 icon: Icon(Icons.star),
+//                 text: 'Favorite',
+//               ),
+//             ],
+//           ),
+// TabBarView(children: [
+//         CategoriesScreen(),
+//         FavoriteScreen(),
+//       ]),
